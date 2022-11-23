@@ -60,11 +60,11 @@ async def user_message(message: types.Message):
                 scheduleHtml = ""
                 scheduleDay = ""
                 for subject in schedule:
+                    print(subject)
                     if scheduleDay != subject["week_day"]:
                         scheduleDay = f"{subject['week_day']}"
                         scheduleHtml+= f"<b>{scheduleDay} ({subject['full_date']})</b>\n"
-                    else:
-                        scheduleHtml+= f"\t<u>{subject['study_time'].strip()}</u>:\n \t<i>{subject['discipline'].strip()}</i>\n \t<i>{subject['study_type'].strip()}</i>\n \t<i>{subject['cabinet'].strip()}</i>\n \t<i>{subject['study_time_begin'].strip()}-{subject['study_time_end'].strip()}</i>\n"
+                    scheduleHtml+= f"\t<u>{subject['study_time'].strip()}</u>:\n \t<i>{subject['discipline'].strip()}</i>\n \t<i>{subject['study_type'].strip()}</i>\n \t<i>{subject['cabinet'].strip()}</i>\n \t<i>{subject['study_time_begin'].strip()}-{subject['study_time_end'].strip()}</i>\n"   
                 await bot.send_message(message.chat.id, scheduleHtml, reply_markup=markup.delete_keyboard(), parse_mode="HTML")
         else:
             await bot.send_message(message.chat.id, f"Така дата не існує")
